@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const giftButton        = document.getElementById('giftButton');
   const giftBox           = document.querySelector('.giftBox');
   const videoSection      = document.querySelector('.video');
+  const birthdayVideo = document.getElementById('birthdayVideo');
   const futureSection     = document.querySelector('.future');
   const letterSection     = document.querySelector('.letter');
   const fireworksCanvas   = document.getElementById('fireworks');
@@ -247,5 +248,29 @@ document.addEventListener('DOMContentLoaded', () => {
       videoSection.scrollIntoView({ behavior: 'smooth' });
     }, 1300);
   });
+/* ---------- Video & Background Music ---------- */
 
+birthdayVideo.addEventListener("play", () => {
+  bgMusic.pause();
+});
+
+birthdayVideo.addEventListener("pause", () => {
+  if (!birthdayVideo.ended) {
+    bgMusic.play().catch(() => {});
+  }
+});
+
+birthdayVideo.addEventListener("ended", () => {
+  bgMusic.play().catch(() => {});
+});
+
+document.addEventListener("fullscreenchange", () => {
+  if (document.fullscreenElement === birthdayVideo) {
+    bgMusic.pause();
+  } else {
+    if (birthdayVideo.paused || birthdayVideo.ended) {
+      bgMusic.play().catch(() => {});
+    }
+  }
+});
 });
